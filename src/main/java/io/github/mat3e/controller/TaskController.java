@@ -5,15 +5,15 @@ import io.github.mat3e.model.TaskRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.net.URI;
 import java.util.List;
 
-@RepositoryRestController
+@RestController
 public class TaskController {
     private static final Logger logger = LoggerFactory.getLogger(TaskController.class);
     private final TaskRepository repository;
@@ -21,15 +21,31 @@ public class TaskController {
     public TaskController(TaskRepository repository) {
         this.repository = repository;
     }
-    @GetMapping(value = "/todos", params = {"!sort", "!page", "!size"})
+    @GetMapping(value = "/tasks", params = {"!sort", "!page", "!size"})
     ResponseEntity<List<Task>> readAllTasks() {
         logger.warn("Exposing all the tasks!");
         return ResponseEntity.ok(repository.findAll());
     }
 
-    @GetMapping(value = "/todos")
+    @GetMapping(value = "/tasks")
     ResponseEntity<List<Task>> readAllTasks(Pageable page) {
         logger.info("Custom pager.");
         return ResponseEntity.ok(repository.findAll(page).getContent());
+    }
+
+    @PutMapping(value = "/tasks/{id}")
+    ResponseEntity<?> updateTask(@PathVariable("id") int taskId, @RequestBody @Valid Task toUpdate){
+        if(!repository.existsById(taskId)){
+            return ResponseEntity.notFound().build();
+        }
+        toUpdate.setId(taskId);
+        repository.save(toUpdate);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping(value = "/tasks")
+    ResponseEntity<?> writeTask(@RequestBody @Valid Task toWrite){
+        Task result = repository.save(toWrite);
+        return ResponseEntity.created(URI.create("/" + result.getId())).body(result);
     }
 }

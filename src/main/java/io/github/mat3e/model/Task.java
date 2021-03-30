@@ -7,18 +7,25 @@ import javax.validation.constraints.NotBlank;
 @Entity
 @Table(name = "tasks")
 public class Task {
+
+
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(name = "desc")
-    @NotBlank(message = "Task's description must be not null.")
+    @NotBlank(message = "Task's description must not be null.")
     private String description;
-    @Column(name = "done")
     private boolean done;
 
     Task()
     {
 
+    }
+    public int getId() { return id; }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getDescription() {
