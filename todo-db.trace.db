@@ -270,3 +270,15 @@ Wrong user name or password [28000-200]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:461)
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:429)
 	... 55 more
+2021-03-30 14:12:48 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabela "TASKS" nie istnieje
+Table "TASKS" not found; SQL statement:
+select count(*) as col_0_0_ from tasks task0_ where task0_.id=? [42102-200]
+2021-03-30 14:25:09 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabela "TASKS" nie istnieje
+Table "TASKS" not found; SQL statement:
+select task0_.id as id1_0_, task0_.description as descript2_0_, task0_.done as done3_0_ from tasks task0_ [42102-200]
+2021-03-30 14:30:47 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabela "TASKS" nie istnieje
+Table "TASKS" not found; SQL statement:
+select task0_.id as id1_0_, task0_.description as descript2_0_, task0_.done as done3_0_ from tasks task0_ [42102-200]
