@@ -7,6 +7,6 @@ spring:
     url:
       jdbc:h2:file:C:\Users\Jaroslaw\Desktop\todo-app\todo-db;DB_CLOSE_DELAY=-1
   jpa.hibernate:
-    ddl-auto: update
+    ddl-auto: validate
   flyway:
     baselineOnMigrate: true
