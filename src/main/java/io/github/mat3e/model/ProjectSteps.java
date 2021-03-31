@@ -2,13 +2,11 @@ package io.github.mat3e.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "task_groups")
-public class TaskGroup
+@Table(name = "project_steps")
+public class ProjectSteps
 {
 
     @Id
@@ -16,17 +14,13 @@ public class TaskGroup
     private int id;
     @NotBlank(message = "Task's description must not be null.")
     private String description;
-    private boolean done;
-    private LocalDateTime deadline;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "group")
-    private Set<Task> tasks;
+    private int daysToDeadline;
 
     @ManyToOne
     @JoinColumn(name = "project_id")
     private Project project;
 
-    TaskGroup()
+    ProjectSteps()
     {
 
     }
@@ -44,28 +38,20 @@ public class TaskGroup
         this.description = description;
     }
 
-    public boolean isDone() {
-        return done;
+    public int getDaysToDeadline() {
+        return daysToDeadline;
     }
 
-    public void setDone(boolean done) {
-        this.done = done;
+    public void setDaysToDeadline(int daysToDeadline) {
+        this.daysToDeadline = daysToDeadline;
     }
 
-    public LocalDateTime getDeadline() {
-        return deadline;
+    public Project getProject() {
+        return project;
     }
 
-    public void setDeadline(LocalDateTime deadline) {
-        this.deadline = deadline;
-    }
-
-    public Set<Task> getTasks() {
-        return tasks;
-    }
-
-    public void setTasks(Set<Task> tasks) {
-        this.tasks = tasks;
+    public void setProject(Project project) {
+        this.project = project;
     }
 
 }
