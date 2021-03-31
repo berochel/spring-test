@@ -1,0 +1,1 @@
+alter table task_groups add column deadline DATETIME null;

@@ -1,4 +1,4 @@
-package io.github.mat3e.model;
+package io.github.mat3e;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;

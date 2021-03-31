@@ -3,11 +3,12 @@ package io.github.mat3e.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Set;
 
-// TODO: stub test task to do
 @Entity
-@Table(name = "tasks")
-public class Task
+@Table(name = "task_groups")
+public class TaskGroup
 {
 
     @Id
@@ -17,15 +18,11 @@ public class Task
     private String description;
     private boolean done;
     private LocalDateTime deadline;
-    @Embedded
-    private Audit audit = new Audit();
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "group")
+    private Set<Task> tasks;
 
-    @ManyToOne
-    @JoinColumn(name = "task_group_id")
-    private TaskGroup group;
-
-    Task()
+    TaskGroup()
     {
 
     }
@@ -59,21 +56,12 @@ public class Task
         this.deadline = deadline;
     }
 
-    public void updateFrom(final Task source)
-    {
-        description = source.description;
-        done = source.done;
-        deadline = source.deadline;
-        group = source.group;
+    public Set<Task> getTasks() {
+        return tasks;
     }
 
-    public TaskGroup getGroup() {
-        return group;
+    public void setTasks(Set<Task> tasks) {
+        this.tasks = tasks;
     }
-
-    public void setGroup(TaskGroup group) {
-        this.group = group;
-    }
-
 
 }

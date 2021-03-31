@@ -1,6 +1,5 @@
 package io.github.mat3e.controller;
 
-import io.github.mat3e.model.TaskConfigurationProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
